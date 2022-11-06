@@ -1,0 +1,33 @@
+server:
+  httpport: :9001
+  jwtkey: my777im
+  salt: mychatroom
+  email: 1003152643@qq.com
+  sender: 十三小白
+  mailpassword: umsdbczidsvkbfhc
+  expiretime: 3000
+  redisprefix: mychatroom:token_
+
+db:
+  driver: "mysql"
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: "0818"
+  dbname: mychatroom
+  charset: utf8mb4
+
+mdb:
+  driver: mongodb
+  host: 127.0.0.1
+  port: 27017
+  dbname: mychatroom
+
+rdb:
+  driver: redis
+  addr: 127.0.0.1:6379
+  local: 7 
+
+admin:
+  username: admin
+  password: 123456

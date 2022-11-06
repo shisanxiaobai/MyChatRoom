@@ -1,0 +1,65 @@
+definitions:
+  model.Reponse:
+    properties:
+      data: {}
+      msg:
+        type: string
+    type: object
+  model.User:
+    properties:
+      account:
+        type: string
+      avatar:
+        type: string
+      email:
+        type: string
+      nickname:
+        type: string
+      password:
+        type: string
+      sex:
+        type: integer
+    type: object
+host: localhost:9001
+info:
+  contact:
+    name: go-swagger帮助文档
+    url: https://github.com/swaggo/swag/blob/master/README_zh-CN.md
+  description: gin+gorm+redis+mongodb+jwt+cors+viper等等
+  license:
+    name: Apache 2.0
+  title: mychatroom gin+gorm+redis+mongodb
+  version: "1.0"
+paths:
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录
+      parameters:
+      - description: 登录
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Reponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Reponse'
+      summary: 用户登录
+      tags:
+      - Login
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
