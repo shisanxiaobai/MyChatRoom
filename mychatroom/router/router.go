@@ -6,6 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // 路由入口
@@ -69,5 +71,10 @@ func RouterStart() {
 		admin.DELETE("/roomdelete/:id", api.AdminDeleteRoom)
 		admin.GET("/userlist", api.GetUserList)
 	}
+
+	//注册swagger路由
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	//项目启动的端口号
 	r.Run(port)
 }

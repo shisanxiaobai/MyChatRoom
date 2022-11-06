@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "mychatroom/conf"
+	_ "mychatroom/docs"
 	"mychatroom/router"
 )
 

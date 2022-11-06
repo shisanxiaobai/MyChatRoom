@@ -1,19 +1,21 @@
+#字符串不识别可以考虑加"" 或者  "
+
 server:
   httpport: :9001
-  jwtkey: my777im
-  salt: mychatroom
-  email: 1003152643@qq.com
-  sender: 十三小白
-  mailpassword: umsdbczidsvkbfhc
-  expiretime: 3000
-  redisprefix: mychatroom:token_
+  jwtkey: my777im                      #jwt token签名，自定义 
+  salt: mychatroom                     #md5加盐， 防止密码被破译，自定义
+  email: 自己的邮箱                     #发送验证码的邮箱,需要在设置里开通内部IMAP
+  sender: 自己定义发送人
+  mailpassword: 自己的IMAP授权码        #开通IMAP后会给你一个授权码，不要暴露，要保管好
+  expiretime: 3000                     #redis存储数据存活时间
+  redisprefix: mychatroom:token_       #redis存储时给键加一个前缀，自定义
 
 db:
   driver: "mysql"
   host: 127.0.0.1
   port: 3306
-  user: root
-  password: "0818"
+  user: 自己mysql账号
+  password: 自己mysql密码
   dbname: mychatroom
   charset: utf8mb4
 
@@ -29,5 +31,5 @@ rdb:
   local: 7 
 
 admin:
-  username: admin
-  password: 123456
+  username: 自己定义管理员用户名
+  password: 自己定义密码
