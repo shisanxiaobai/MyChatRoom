@@ -30,11 +30,11 @@ type MyClaims struct {
 
 // 定义错误
 var (
-	TokenExpired     error = errors.New("Token已过期,请重新登录")
-	TokenNotValidYet error = errors.New("Token验证失败,请重新登录")
-	TokenMalformed   error = errors.New("Token不正确,请重新登录")
-	TokenNotExist    error = errors.New("Token不存在,请重新登录")
-	TokenInvalid     error = errors.New("Token失效,请重新登录")
+	ErrTokenExpired     error = errors.New("Token已过期,请重新登录")
+	ErrTokenNotValidYet error = errors.New("Token验证失败,请重新登录")
+	ErrTokenMalformed   error = errors.New("Token不正确,请重新登录")
+	ErrTokenNotExist    error = errors.New("Token不存在,请重新登录")
+	ErrTokenInvalid     error = errors.New("Token失效,请重新登录")
 )
 
 // CreateToken 生成token
@@ -61,14 +61,14 @@ func ParserToken(tokenString string) (*MyClaims, error) {
 	if err != nil {
 		if ve, ok := err.(*jwt.ValidationError); ok {
 			if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-				return nil, TokenMalformed
+				return nil, ErrTokenMalformed
 			} else if ve.Errors&jwt.ValidationErrorExpired != 0 {
 				// Token is expired
-				return nil, TokenExpired
+				return nil, ErrTokenExpired
 			} else if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
-				return nil, TokenNotValidYet
+				return nil, ErrTokenNotValidYet
 			} else {
-				return nil, TokenInvalid
+				return nil, ErrTokenInvalid
 			}
 		}
 	}
@@ -77,17 +77,17 @@ func ParserToken(tokenString string) (*MyClaims, error) {
 		if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
 			return claims, nil
 		}
-		return nil, TokenInvalid
+		return nil, ErrTokenInvalid
 	}
 
-	return nil, TokenNotExist
+	return nil, ErrTokenNotExist
 }
 
 // JwtToken jwt中间件
 func JwtToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var code int
-		tokenHeader := c.Request.Header.Get("Authorization")
+		tokenHeader := c.GetHeader("Authorization")
 		if tokenHeader == "" {
 			code = errmsg.ERROR_TOKEN_INEXIST
 			c.JSON(http.StatusOK, gin.H{
@@ -122,7 +122,7 @@ func JwtToken() gin.HandlerFunc {
 		// 解析token
 		claims, err := ParserToken(checkToken[1])
 		if err != nil {
-			if err == TokenExpired {
+			if err == ErrTokenExpired {
 				c.JSON(http.StatusOK, gin.H{
 					"status":  errmsg.ERROR_TOKEN_RUNTIME,
 					"message": errmsg.GetErrMsg(errmsg.ERROR_TOKEN_RUNTIME),
