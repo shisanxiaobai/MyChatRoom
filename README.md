@@ -20,8 +20,8 @@
 拉取redis:5.0.14 
 
 修改config下的config.yaml文件
-进入文件所在的文件夹，执行docker build -f Dockerfile -t myblog .
-执行 docker run -p 9001:9001 -d myblog
+进入文件所在的文件夹，执行docker build -f Dockerfile -t mychatroom .
+执行 docker run -p 9001:9001 -d mychatroom
 
 
 #### 直接安装访问
