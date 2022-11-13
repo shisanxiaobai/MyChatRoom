@@ -36,7 +36,7 @@ go run main.go执行
 
 ### 使用说明
 
-需要在windows下或者docker下安装mysql,mongodb,redis
+需要在windows下或者docker下安装mysql，mongodb，redis
 如果主机名不是localhost，端口号想修改，需要修改config/config.yaml
 
 swagger导入依赖后，swag init初始化 进入路由界面即可http://localhost:9001/swagger/index.html
